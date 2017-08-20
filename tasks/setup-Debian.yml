@@ -26,12 +26,15 @@
       when: postgresql_repo_pinning is defined and postgresql_repo_pinning != ''
   when: postgresql_enablerepo is defined and postgresql_enablerepo != ''
 
-- name: Debian | Ensure PostgreSQL Python libraries are installed.
-  apt: "name=python-psycopg2 state=installed update_cache=yes"
+- name: Ensure PostgreSQL Python libraries are installed.
+  apt:
+    name: "{{ postgresql_python_library }}"
+    state: installed
 
-## FIXME! travis/trusty: already have pgdg. postgresql calls postgresql-9.6
-- name: Debian | Ensure PostgreSQL packages are installed.
-  apt: "name={{ item }} state=installed"
+- name: Ensure PostgreSQL packages are installed.
+  apt:
+    name: "{{ item }}"
+    state: installed
   with_items: "{{ postgresql_pkgnames | default( postgresql_packages ) }}"
 
 - name: Debian | Ensure all configured locales are present.
