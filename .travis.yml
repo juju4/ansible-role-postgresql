@@ -30,7 +30,7 @@ env:
     test_yml: 'test.yml'
 
 before_script:
-  - perl -pi -e 's@geerlingguy.postgresql@role_under_test@' ${test_yml}
+  - perl -pi -e 's@geerlingguy.postgresql@role_under_test@' ${test_yml#*/}
 
 script:
   # Configure test script so we can run extra tests after playbook is run.
