@@ -8,34 +8,47 @@
       apt: update_cache=yes
       when: ansible_os_family == 'Debian'
 
+    - name: Which postgresql version to use
+      set_fact:
+	__postgresql_version: "9.6"
+
     - name: Set postgresql upstream repo for Ubuntu
       set_fact:
-        postgresql_enablerepo: "http://apt.postgresql.org/pub/repos/apt/"
-        postgresql_enablerepo_key: "https://www.postgresql.org/media/keys/ACCC4CF8.asc"
-#        postgresql_enablerepo_version: '9.5'
-        postgresql_pkgnames:
-#          - postgresql         ## postgresql matchs latest release
-          - postgresql-9.5
-        __postgresql_version: "9.5"
-      when: ansible_distribution == 'Ubuntu'
-    - set_fact:
         postgresql_data_dir: "/var/lib/postgresql/{{ __postgresql_version }}/main"
         postgresql_bin_path: "/usr/lib/postgresql/{{ __postgresql_version }}/bin"
         postgresql_config_path: "/etc/postgresql/{{ __postgresql_version }}/main"
         postgresql_daemon: postgresql
+        postgresql_enablerepo: "http://apt.postgresql.org/pub/repos/apt/"
+        postgresql_enablerepo_key: "https://www.postgresql.org/media/keys/ACCC4CF8.asc"
+        postgresql_pkgnames:
+#          - postgresql         ## postgresql matchs latest release
+          - "postgresql-{{ __postgresql_version }}"
       when: ansible_distribution == 'Ubuntu'
 
-    - set_fact:
-        postgresql_repo: "https://download.postgresql.org/pub/repos/yum/9.5/redhat/rhel-7-x86_64/pgdg-redhat95-9.5-3.noarch.rpm"
-#        postgresql_enablerepo: "pgdg-95"
+    - name: Set postgresql upstream repo for RedHat7
+      set_fact:
+        postgresql_data_dir: "/var/lib/pgsql/{{ __postgresql_version }}/data"
+        postgresql_bin_path: "/usr/pgsql-{{ __postgresql_version }}/bin"
+        postgresql_config_path: "/var/lib/pgsql/{{ __postgresql_version }}/main"
+        postgresql_daemon: "postgresql-{{ __postgresql_version }}"
+#        postgresql_repo: "https://download.postgresql.org/pub/repos/yum/9.5/redhat/rhel-7-x86_64/pgdg-redhat95-9.5-3.noarch.rpm"
+        postgresql_repo: "https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-7-x86_64/pgdg-redhat96-9.6-3.noarch.rpm"
         postgresql_packages:
-          - postgresql95
+          - "postgresql{{ __postgresql_version | regex_replace('\.', '') }}"
+          - "postgresql{{ __postgresql_version | regex_replace('\.', '') }}-server"
       when: ansible_os_family == 'RedHat' and ansible_distribution_version.split('.')[0] == '7'
-    - set_fact:
-        postgresql_repo: "https://download.postgresql.org/pub/repos/yum/9.5/redhat/rhel-6-x86_64/pgdg-redhat95-9.5-3.noarch.rpm"
-#        postgresql_enablerepo: "pgdg-95"
+
+    - name: Set postgresql upstream repo for RedHat6
+      set_fact:
+        postgresql_data_dir: "/var/lib/pgsql/{{ __postgresql_version }}/data"
+        postgresql_bin_path: "/usr/pgsql-{{ __postgresql_version }}/bin"
+        postgresql_config_path: "/var/lib/pgsql/{{ __postgresql_version }}/main"
+        postgresql_daemon: "postgresql-{{ __postgresql_version }}"
+#        postgresql_repo: "https://download.postgresql.org/pub/repos/yum/9.5/redhat/rhel-6-x86_64/pgdg-redhat95-9.5-3.noarch.rpm"
+        postgresql_repo: "https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-6-x86_64/pgdg-redhat96-9.6-3.noarch.rpm"
         postgresql_packages:
-          - postgresql95
+          - "postgresql{{ __postgresql_version | regex_replace('\.', '') }}"
+          - "postgresql{{ __postgresql_version | regex_replace('\.', '') }}-server"
       when: ansible_os_family == 'RedHat' and ansible_distribution_version.split('.')[0] == '6'
 
   roles:
