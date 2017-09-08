@@ -34,8 +34,8 @@
 #        postgresql_repo: "https://download.postgresql.org/pub/repos/yum/9.5/redhat/rhel-7-x86_64/pgdg-redhat95-9.5-3.noarch.rpm"
         postgresql_repo: "https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-7-x86_64/pgdg-redhat96-9.6-3.noarch.rpm"
         postgresql_packages:
-          - "postgresql{{ __postgresql_version | regex_replace('\.', '') }}"
-          - "postgresql{{ __postgresql_version | regex_replace('\.', '') }}-server"
+          - "postgresql{{ __postgresql_version | regex_replace('\\.', '') }}"
+          - "postgresql{{ __postgresql_version | regex_replace('\\.', '') }}-server"
       when: ansible_os_family == 'RedHat' and ansible_distribution_version.split('.')[0] == '7'
 
     - name: Set postgresql upstream repo for RedHat6
@@ -47,8 +47,8 @@
 #        postgresql_repo: "https://download.postgresql.org/pub/repos/yum/9.5/redhat/rhel-6-x86_64/pgdg-redhat95-9.5-3.noarch.rpm"
         postgresql_repo: "https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-6-x86_64/pgdg-redhat96-9.6-3.noarch.rpm"
         postgresql_packages:
-          - "postgresql{{ __postgresql_version | regex_replace('\.', '') }}"
-          - "postgresql{{ __postgresql_version | regex_replace('\.', '') }}-server"
+          - "postgresql{{ __postgresql_version | regex_replace('\\.', '') }}"
+          - "postgresql{{ __postgresql_version | regex_replace('\\.', '') }}-server"
       when: ansible_os_family == 'RedHat' and ansible_distribution_version.split('.')[0] == '6'
 
   roles:
