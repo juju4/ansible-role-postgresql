@@ -25,7 +25,8 @@ platforms:
   - name: ubuntu-14.04
   - name: ubuntu-12.04
   - name: centos-7
-  - name: centos-6
+## ERROR! Unexpected Exception: 'module' object has no attribute 'HAVE_DECL_MPZ_POWM_SEC'
+#  - name: centos-6
 ## FIXME! 'Installing Chef Omnibus to install busser to run tests' not supported = can disable
 ##	' sl = self._semlock = _multiprocessing.SemLock(kind, value, maxvalue)\nOSError: [Errno 2] No such file or directory'
 #  - name: alpine-3.4
