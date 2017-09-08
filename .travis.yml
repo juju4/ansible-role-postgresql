@@ -43,7 +43,8 @@ script:
 
   # Check PostgreSQL status.
   - 'docker exec -u postgres ${container_id} ${postgresql_bin_dir}/pg_ctl -D ${postgresql_data_dir} status'
-  - 'docker exec -u postgres--tty ${container_id} env TERM=xterm psql -P pager=off -c "\\dt"'
+  - 'docker exec -u postgres --tty ${container_id} env TERM=xterm psql -P pager=off -c "\\db"'
+  - 'docker exec -u postgres --tty ${container_id} env TERM=xterm psql -P pager=off -c "\\du"'
 
 after_failure:
   # Check what happened on systemd systems.
