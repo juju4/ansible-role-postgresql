@@ -29,6 +29,9 @@ env:
     postgresql_data_dir: /var/lib/postgresql/9.4/main
     test_yml: 'test.yml'
 
+before_script:
+  - perl -pi -e 's@geerlingguy.postgresql@role_under_test@' ${test_yml}
+
 script:
   # Configure test script so we can run extra tests after playbook is run.
   - export container_id=$(date +%s)
