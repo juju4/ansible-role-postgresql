@@ -55,7 +55,7 @@ after_failure:
 
 after_script:
   # Clean up
-  - 'sudo docker stop "$(cat ${container_id})"'
+  - 'sudo docker stop "${container_id}"'
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
