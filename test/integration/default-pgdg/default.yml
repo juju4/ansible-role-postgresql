@@ -10,7 +10,7 @@
 
     - name: Which postgresql version to use
       set_fact:
-	__postgresql_version: "9.6"
+	    __postgresql_version: "9.6"
 
     - name: Set postgresql upstream repo for Ubuntu
       set_fact:
