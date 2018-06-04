@@ -29,7 +29,7 @@
 - name: Ensure PostgreSQL Python libraries are installed.
   apt:
     name: "{{ postgresql_python_library }}"
-    state: installed
+    state: present
 
 - name: Ensure PostgreSQL packages are installed.
   apt:
