@@ -2,7 +2,7 @@
 
 - name: RedHat | Install new repository
   yum: name="{{ postgresql_repo }}" state=present
-  when: postgresql_repo is defined and postgresql_repo != ''
+  when: postgresql_repo is defined and postgresql_repo
 
 - name: Ensure PostgreSQL packages are installed.
   package:

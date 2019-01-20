@@ -2,7 +2,10 @@
 
 - block:
     - name: Debian | add repository to sources.list
-      lineinfile: dest=/etc/apt/sources.list.d/pgdg.list line="deb {{ postgresql_enablerepo }} {{ ansible_distribution_release | lower }}-pgdg main" create=yes
+      lineinfile:
+        dest: /etc/apt/sources.list.d/pgdg.list
+        line: "deb {{ postgresql_enablerepo }} {{ ansible_distribution_release | lower }}-pgdg main"
+        create: yes
       register: newrepo
     - name: Debian | add repository key
       apt_key: url={{ postgresql_enablerepo_key }} state=present
@@ -23,8 +26,8 @@
           Pin: release o=apt.postgresql.org
           Pin-Priority: {{ postgresql_repo_pinning }}
         marker: "# {mark} ANSIBLE MANAGED BLOCK: repo pinning"
-      when: postgresql_repo_pinning is defined and postgresql_repo_pinning != ''
-  when: postgresql_enablerepo is defined and postgresql_enablerepo != ''
+      when: postgresql_repo_pinning is defined and postgresql_repo_pinning
+  when: postgresql_enablerepo is defined and postgresql_enablerepo
 
 - name: Ensure PostgreSQL Python libraries are installed.
   apt:

@@ -1,7 +1,7 @@
 ---
 # Variable configuration.
 - include: variables.yml
-  when: postgresql_enablerepo is not defined or postgresql_enablerepo == ''
+  when: postgresql_enablerepo is not defined or not postgresql_enablerepo
   static: no
 
 # Setup/install tasks.
