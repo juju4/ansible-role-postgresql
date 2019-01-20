@@ -8,11 +8,11 @@
   package:
     name: "{{ item }}"
     state: installed
-#    enablerepo: "{{ postgresql_enablerepo }}"
+    enablerepo: "{{ postgresql_enablerepo | default(omit, true) }}"
   with_items: "{{ postgresql_pkgnames | default( postgresql_packages ) }}"
 
 - name: Ensure PostgreSQL Python libraries are installed.
   package:
     name: "{{ postgresql_python_library }}"
     state: installed
-#    enablerepo: "{{ postgresql_enablerepo }}"
+    enablerepo: "{{ postgresql_enablerepo | default(omit, true) }}"

@@ -1,8 +1,6 @@
 ---
 
 - hosts: all
-#  vars:
-#    - a:
   pre_tasks:
     - name: Update apt cache.
       apt:
@@ -33,7 +31,7 @@
         postgresql_bin_path: "/usr/pgsql-{{ __postgresql_version }}/bin"
         postgresql_config_path: "/var/lib/pgsql/{{ __postgresql_version }}/data"
         postgresql_daemon: "postgresql-{{ __postgresql_version }}"
-#        postgresql_repo: "https://download.postgresql.org/pub/repos/yum/9.5/redhat/rhel-7-x86_64/pgdg-redhat95-9.5-3.noarch.rpm"
+        # postgresql_repo: "https://download.postgresql.org/pub/repos/yum/9.5/redhat/rhel-7-x86_64/pgdg-redhat95-9.5-3.noarch.rpm"
         postgresql_repo: "https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-7-x86_64/pgdg-redhat96-9.6-3.noarch.rpm"
         postgresql_packages:
           - "postgresql{{ __postgresql_version | regex_replace('\\.', '') }}"
@@ -46,7 +44,7 @@
         postgresql_bin_path: "/usr/pgsql-{{ __postgresql_version }}/bin"
         postgresql_config_path: "/var/lib/pgsql/{{ __postgresql_version }}/data"
         postgresql_daemon: "postgresql-{{ __postgresql_version }}"
-#        postgresql_repo: "https://download.postgresql.org/pub/repos/yum/9.5/redhat/rhel-6-x86_64/pgdg-redhat95-9.5-3.noarch.rpm"
+        # postgresql_repo: "https://download.postgresql.org/pub/repos/yum/9.5/redhat/rhel-6-x86_64/pgdg-redhat95-9.5-3.noarch.rpm"
         postgresql_repo: "https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-6-x86_64/pgdg-redhat96-9.6-3.noarch.rpm"
         postgresql_packages:
           - "postgresql{{ __postgresql_version | regex_replace('\\.', '') }}"

@@ -12,9 +12,6 @@
     - name: Debian | Update apt cache
       apt: update_cache=yes
       when: newrepo.changed
-#    - name: Debian | Ensure PostgreSQL packages are installed.
-#      apt: "name={{ item }} state=installed"
-#      with_items: "{{ postgresql_pkgnames | default([]) }}"
     - name: Debian | ensure variables are defined
       set_fact:
         postgresql_daemon: postgresql
