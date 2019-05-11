@@ -2,7 +2,7 @@
 # Variable configuration.
 - include: variables.yml
   when: postgresql_enablerepo is not defined or not postgresql_enablerepo
-  static: no
+  static: false
 
 # Setup/install tasks.
 - include_tasks: setup-RedHat.yml
