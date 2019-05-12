@@ -3,6 +3,8 @@
 - name: RedHat | Install new repository
   yum: name="{{ postgresql_repo }}" state=present
   when: postgresql_repo is defined and postgresql_repo
+  register: pkg_result
+  until: pkg_result is success
 
 - name: Ensure PostgreSQL packages are installed.
   package:
@@ -10,9 +12,13 @@
     state: installed
     enablerepo: "{{ postgresql_enablerepo | default(omit, true) }}"
   with_items: "{{ postgresql_pkgnames | default( postgresql_packages ) }}"
+  register: pkg_result
+  until: pkg_result is success
 
 - name: Ensure PostgreSQL Python libraries are installed.
   package:
     name: "{{ postgresql_python_library }}"
     state: installed
     enablerepo: "{{ postgresql_enablerepo | default(omit, true) }}"
+  register: pkg_result
+  until: pkg_result is success

@@ -12,6 +12,8 @@
     - name: Debian | Update apt cache
       apt: update_cache=yes
       when: newrepo.changed
+      register: pkg_result
+      until: pkg_result is success
     - name: Debian | ensure variables are defined
       set_fact:
         postgresql_daemon: postgresql
@@ -30,12 +32,16 @@
   apt:
     name: "{{ postgresql_python_library }}"
     state: present
+  register: pkg_result
+  until: pkg_result is success
 
 - name: Ensure PostgreSQL packages are installed.
   apt:
     name: "{{ item }}"
     state: installed
   with_items: "{{ postgresql_pkgnames | default( postgresql_packages ) }}"
+  register: pkg_result
+  until: pkg_result is success
 
 - name: Debian | Ensure all configured locales are present.
   locale_gen: "name={{ item }} state=present"
