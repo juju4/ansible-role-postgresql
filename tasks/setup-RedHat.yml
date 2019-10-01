@@ -7,16 +7,19 @@
   until: pkg_result is success
 
 - name: Ensure PostgreSQL packages are installed.
-  package:
-    name: "{{ item }}"
-    state: installed
+  yum:
+    name: "{{ postgresql_pkgnames | default( postgresql_packages ) }}"
+    state: present
     enablerepo: "{{ postgresql_enablerepo | default(omit, true) }}"
-  with_items: "{{ postgresql_pkgnames | default( postgresql_packages ) }}"
+    # Don't let postgresql-contrib cause the /usr/bin/python symlink
+    # to be installed, which breaks later Ansible runs on Fedora 30,
+    # and affects system behavior in multiple ways.
+    exclude: python-unversioned-command
   register: pkg_result
   until: pkg_result is success
 
 - name: Ensure PostgreSQL Python libraries are installed.
-  package:
+  yum:
     name: "{{ postgresql_python_library }}"
     state: installed
     enablerepo: "{{ postgresql_enablerepo | default(omit, true) }}"
