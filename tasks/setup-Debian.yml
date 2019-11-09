@@ -38,7 +38,7 @@
 - name: Ensure PostgreSQL packages are installed.
   apt:
     name: "{{ item }}"
-    state: installed
+    state: present
   with_items: "{{ postgresql_pkgnames | default( postgresql_packages ) }}"
   register: pkg_result
   until: pkg_result is success
