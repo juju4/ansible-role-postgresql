@@ -4,11 +4,14 @@
   when: postgresql_enablerepo is not defined or not postgresql_enablerepo
 
 # Setup/install tasks.
-- include_tasks: setup-RedHat.yml
-  when: ansible_os_family == 'RedHat'
+- include_tasks: setup-Archlinux.yml
+  when: ansible_os_family == 'Archlinux'
 
 - include_tasks: setup-Debian.yml
   when: ansible_os_family == 'Debian'
+
+- include_tasks: setup-RedHat.yml
+  when: ansible_os_family == 'RedHat'
 
 - include_tasks: initialize.yml
 - include_tasks: configure.yml
